@@ -180,7 +180,7 @@ public class ItemHandler {
 
 	private static boolean isDict(String name, ItemStack itemstack) {
 		for (ItemStack item : OreDictionary.getOres(name)) {
-			if (itemstack.isItemEqual(item)) {
+			if (itemstack.getItem() == item.getItem()) {
 				return true;
 			}
 		}

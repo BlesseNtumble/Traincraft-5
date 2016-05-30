@@ -379,6 +379,8 @@ public abstract class SignalBlock extends AbstractPair {
                             waitingForRetest.add(otherCoord);
                     }
                     break;
+			default:
+				break;
             }
         }
     }

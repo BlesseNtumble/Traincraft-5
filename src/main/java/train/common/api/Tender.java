@@ -16,8 +16,7 @@ public abstract class Tender extends Freight implements IFluidHandler {
 	public int waterSlot = 1;
 	private int maxTank;
 	private int update = 8;
-	private StandardTank theTank;
-	private IFluidTank[] tankArray = new IFluidTank[1];
+	private FluidTank theTank;
 	private FluidStack liquid;
 
 	/**
@@ -27,25 +26,18 @@ public abstract class Tender extends Freight implements IFluidHandler {
 	 * @param quantity
 	 * @param capacity
 	 */
-	public Tender(World world, int liquidId, int quantity, int capacity) {
-		this(new FluidStack(liquidId, quantity), capacity, world, null);
+	public Tender(World world, Fluid liquid, int quantity, int capacity) {
+		this(new FluidStack(liquid, quantity), capacity, world, null);
 	}
 
-	public Tender(World world, int liquidId, int quantity, int capacity, FluidStack filter) {
-		this(new FluidStack(liquidId, quantity), capacity, world, filter);
+	public Tender(World world, Fluid liquid, int quantity, int capacity, FluidStack filter) {
+		this(new FluidStack(liquid, quantity), capacity, world, filter);
 	}
 
 	private Tender(FluidStack liquid, int capacity, World world, FluidStack filter) {
 		super(world);
 		this.liquid = liquid;
 		this.maxTank = capacity;
-		if (filter == null)
-			this.theTank = LiquidManager.getInstance().new StandardTank(capacity);
-		if (filter != null)
-			this.theTank = LiquidManager.getInstance().new FilteredTank(capacity, filter);
-		tankArray[0] = theTank;
-		dataWatcher.addObject(4, new Integer(0));
-		this.dataWatcher.addObject(23, new Integer(0));
 	}
 	@Override
 	public abstract int getSizeInventory();
@@ -65,14 +57,6 @@ public abstract class Tender extends Freight implements IFluidHandler {
 		super.onUpdate();
 		if (worldObj.isRemote)
 			return;
-		if (theTank != null && theTank.getFluid() != null) {
-			this.dataWatcher.updateObject(23, theTank.getFluid().amount);
-			this.dataWatcher.updateObject(4, theTank.getFluid().getFluidID());
-		}
-		else if (theTank != null && theTank.getFluid() == null) {
-			this.dataWatcher.updateObject(23, 0);
-			this.dataWatcher.updateObject(4, 0);
-		}
 	}
 	/**
 	 * handle mass depending on items and liquid
@@ -107,24 +91,14 @@ public abstract class Tender extends Freight implements IFluidHandler {
 	 * @return
 	 */
 	public int getWater() {
-		return (this.dataWatcher.getWatchableObjectInt(23));
-	}
-
-	/**
-	 * used by the GUI
-	 * 
-	 * @return int
-	 */
-	public int getLiquidItemID() {
-		return (this.dataWatcher.getWatchableObjectInt(4));
+		if (theTank != null && theTank.getFluid() != null) {
+			return theTank.getFluid().amount;
+		}
+		return 0;
 	}
 
 	public int getCartTankCapacity() {
 		return maxTank;
-	}
-
-	public StandardTank getTank() {
-		return theTank;
 	}
 
 	private void placeInInvent(ItemStack itemstack1, Tender tender) {

@@ -74,7 +74,7 @@ public class PluginRailcraft implements IPlugin {
 		}
 	}
 
-	private void addTrackNames() {
+	private void addTrackNames() {/*
 		if (TrackIDs.COUPLER_TRACK.getTrackSpec() != null)
 			LanguageRegistry.addName(TrackIDs.COUPLER_TRACK.getTrackSpec().getItem(), "[TC] Coupler Track");
 		if (TrackIDs.ANIMAL_BOARDING_TRACK.getTrackSpec() != null)
@@ -115,9 +115,9 @@ public class PluginRailcraft implements IPlugin {
 			LanguageRegistry.addName(TrackIDs.SNOWY_STEEL_TRACK.getTrackSpec().getItem(), "[TC] Snowy steel track");
 		if (TrackIDs.SNOWY_COPPER_TRACK.getTrackSpec() != null)
 			LanguageRegistry.addName(TrackIDs.SNOWY_COPPER_TRACK.getTrackSpec().getItem(), "[TC] Snowy copper track");
-	}
+	*/}
 
-	private void addTrackRecipes() {
+	private void addTrackRecipes() {/*
 		if(items.containsKey(names[2]) && items.containsKey(names[3]) && items.containsKey(names[4])&&items.containsKey(names[5])&&items.containsKey(names[6])&&items.containsKey(names[7])&&items.containsKey(names[8])){
 			if (TrackIDs.COUPLER_TRACK.getTrackSpec() != null)
 				GameRegistry.addRecipe(TrackIDs.COUPLER_TRACK.getTrackSpec().getItem(TrackIDs.COUPLER_TRACK.getRecipeOutput()), new Object[] { "#R#", "#X#", "# #", Character.valueOf('#'), items.get(names[2]), Character.valueOf('R'), items.get(names[8]), Character.valueOf('X'), ItemIDs.stake.item });
@@ -171,7 +171,7 @@ public class PluginRailcraft implements IPlugin {
 			for (int t = 0; t < steel.size(); t++) {
 				RailcraftCraftingManager.rollingMachine.addRecipe(new ItemStack(ItemIDs.steelRail.item, 16), new Object[] { "X X", "I I", "X X", Character.valueOf('X'), steel.get(t), Character.valueOf('I'), Items.iron_ingot });
 			}
-		}
+		}*/
 	}
 
 	private void checkItems() {
