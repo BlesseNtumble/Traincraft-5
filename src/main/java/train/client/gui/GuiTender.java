@@ -1,5 +1,8 @@
 package train.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.Entity;
@@ -9,18 +12,13 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
 import train.common.api.AbstractTrains;
-import train.common.api.LiquidManager;
 import train.common.api.Tender;
 import train.common.inventory.InventoryTender;
 import train.common.library.Info;
-
-import java.util.List;
 
 public class GuiTender extends GuiContainer {
 
@@ -30,7 +28,7 @@ public class GuiTender extends GuiContainer {
 	private boolean rollDown;
 	private EntityPlayer player;
 	private GuiButton buttonLock;
-
+	
 	public GuiTender(EntityPlayer player, InventoryPlayer inventoryplayer, Entity entityminecart) {
 		super(new InventoryTender(inventoryplayer, (Tender) entityminecart));
 		tender = (Tender) entityminecart;
@@ -140,6 +138,10 @@ public class GuiTender extends GuiContainer {
 		fontRendererObj.drawStringWithShadow("the GUI and destroy it.", startX, startY + 20, -1);
 		fontRendererObj.drawStringWithShadow("Current state: "+state, startX, startY+30, -1);
 		fontRendererObj.drawStringWithShadow("Owner: "+((AbstractTrains) tender).trainOwner.trim(), startX, startY+40, -1);
+		
+		fontRendererObj.drawStringWithShadow(tender.getFluid() != null ? tender.getFluid().getLocalizedName() : "None", j + 143, k + 69, -1);
+        fontRendererObj.drawStringWithShadow(tender.theTank.getFluidAmount()+"/"+tender.getCartTankCapacity(), j + 143, k + 69+10, -1);
+        
 	}
 	public boolean intersectsWith(int mouseX, int mouseY) {
 		//System.out.println(mouseX+" "+mouseY);
@@ -158,16 +160,16 @@ public class GuiTender extends GuiContainer {
 		mc.renderEngine.bindTexture(new ResourceLocation(Info.resourceLocation,i));
 		int j = (width - xSize) / 2;
 		int k = (height - ySize) / 2;
-		drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
+		this.drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
 
-		if (tender instanceof Tender) {
-			int load = (tender).getWater();
-			int lo = Math.abs(((load * 50) / (tender).getCartTankCapacity()));
+		int load = tender.getWater();
+		int lo = Math.abs(((load * 50) / tender.getCartTankCapacity()));
 
-			//if (tender.theTank.getFluidAmount() * 38 / tender.theTank.getCapacity() > 0) {
-
-				drawTexturedModalRect(j + 143, (k + 69) - lo, 190, 69 - lo, 18, lo);
-			//}
+		int lavaLevel = this.tender.theTank.getFluid() != null ? this.tender.theTank.getFluid().amount : 1;
+		System.out.println(tender.getFluid());
+		if (lavaLevel > 0) {
+			this.drawTexturedModalRect(j + 143, (k + 69) - lo, 190, 69 - lo, 18, lo);
 		}
+		
 	}
 }

@@ -39,7 +39,7 @@ public abstract class Tender extends Freight implements IFluidHandler {
 		super(world);
 		this.liquid = liquid;
 		this.maxTank = capacity;
-		this.theTank = LiquidManager.getInstance().new FilteredTank(3000, LiquidManager.WATER_FILTER, 1);
+		this.theTank = LiquidManager.getInstance().new StandardTank(5000);
 	}
 	@Override
 	public abstract int getSizeInventory();
@@ -94,7 +94,7 @@ public abstract class Tender extends Freight implements IFluidHandler {
 	 */
 	public int getWater() {
 		if (theTank != null && theTank.getFluid() != null) {
-			return theTank.getFluid().amount;
+			return theTank.getFluidAmount();
 		}
 		return 0;
 	}
