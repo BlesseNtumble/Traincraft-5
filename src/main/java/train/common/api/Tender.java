@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import train.common.api.LiquidManager.FilteredTank;
 import train.common.api.LiquidManager.StandardTank;
 
 public abstract class Tender extends Freight implements IFluidHandler {
@@ -38,6 +39,7 @@ public abstract class Tender extends Freight implements IFluidHandler {
 		super(world);
 		this.liquid = liquid;
 		this.maxTank = capacity;
+		this.theTank = LiquidManager.getInstance().new FilteredTank(3000, LiquidManager.WATER_FILTER, 1);
 	}
 	@Override
 	public abstract int getSizeInventory();
@@ -130,7 +132,7 @@ public abstract class Tender extends Freight implements IFluidHandler {
 			return;
 		this.update += 1;
 		if (this.update % 8 == 0 && itemstack != null) {
-			ItemStack result = LiquidManager.getInstance().processContainer((IInventory) this, 0, theTank, itemstack, 0);
+			ItemStack result = LiquidManager.getInstance().processContainer(this, 0, theTank, itemstack);
 			if (result != null) {
 				placeInInvent(result, tender);
 				//decrStackSize(0, 1);

@@ -101,20 +101,11 @@ public class ItemHandler {
 			return woodStuff(itemstack);
 		}
 		if (entity instanceof EntityFreightClosed) {
-			if (!woodStuff(itemstack)) {
-				if (block !=null) {
-					return true;
-				}
-			}
-			return false;
+			return !woodStuff(itemstack);
+
 		}
 		if (entity instanceof EntityFreightGondola_DB) {
-			if (!woodStuff(itemstack)) {
-				if (block !=null) {
-					return true;
-				}
-			}
-			return false;
+			return !woodStuff(itemstack);
 		}
 		if (entity instanceof EntityFreightGrain) {
 			int id = Item.getIdFromItem(itemstack.getItem());

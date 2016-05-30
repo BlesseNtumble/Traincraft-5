@@ -60,7 +60,7 @@ public class LiquidManager {
 		dieselFilter();
 		FuelManager.addBoilerFuel(DIESEL, 60000);
 		FuelManager.addBoilerFuel(REFINED_FUEL, 96000);
-		if(Loader.isModLoaded("BuildCraft"))
+		if(Loader.isModLoaded("BuildCraft|Core"))
 		{
 			BuildcraftFuelRegistry.fuel.addFuel(DIESEL, 3, 200000);
 			BuildcraftFuelRegistry.fuel.addFuel(REFINED_FUEL, 6, 100000);
@@ -184,7 +184,7 @@ public class LiquidManager {
 		return null;
 	}
 
-	public ItemStack processContainer(IInventory inventory, int inventoryIndex, FluidTank tank, ItemStack itemstack, int tankIndex) {
+	public ItemStack processContainer(IInventory inventory, int inventoryIndex, FluidTank tank, ItemStack itemstack) {
 		FluidStack bucketLiquid = getFluidInContainer(itemstack);
 		ItemStack emptyItem = itemstack.getItem().getContainerItem(itemstack);
 		if ((bucketLiquid != null)) {
