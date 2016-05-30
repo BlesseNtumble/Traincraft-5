@@ -9,7 +9,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
+
 import train.common.api.AbstractTrains;
 import train.common.api.LiquidManager;
 import train.common.api.Tender;
@@ -160,7 +164,7 @@ public class GuiTender extends GuiContainer {
 			int load = (tender).getWater();
 			int lo = Math.abs(((load * 50) / (tender).getCartTankCapacity()));
 
-			if ((tender).getFluid() == LiquidManager.WATER_FILTER) {
+			if ((tender).getFluid().getFluid() == FluidRegistry.WATER && tender.getFluid().amount > 0) {
 
 				drawTexturedModalRect(j + 143, (k + 69) - lo, 190, 69 - lo, 18, lo);
 			}

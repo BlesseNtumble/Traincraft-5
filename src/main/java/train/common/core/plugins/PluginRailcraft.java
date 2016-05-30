@@ -64,8 +64,8 @@ public class PluginRailcraft implements IPlugin {
 	}
 
 	private void initItems() {
-		ItemIDs.steelRail.item.setUnlocalizedName(ItemIDs.steelRail.name());
-		ItemIDs.copperRail.item.setUnlocalizedName(ItemIDs.copperRail.name());
+		//ItemIDs.steelRail.item.setUnlocalizedName(ItemIDs.steelRail.name());
+		//ItemIDs.copperRail.item.setUnlocalizedName(ItemIDs.copperRail.name());
 
 		for (int i = 0; i < names.length; i++) {
 			if (GameRegistry.findItemStack("Railcraft", names[i], 1) != null) {
