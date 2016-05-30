@@ -16,7 +16,7 @@ public abstract class Tender extends Freight implements IFluidHandler {
 	public int waterSlot = 1;
 	private int maxTank;
 	private int update = 8;
-	private FluidTank theTank;
+	public FluidTank theTank;
 	private FluidStack liquid;
 
 	/**

@@ -164,10 +164,10 @@ public class GuiTender extends GuiContainer {
 			int load = (tender).getWater();
 			int lo = Math.abs(((load * 50) / (tender).getCartTankCapacity()));
 
-			if ((tender).getFluid().getFluid() == FluidRegistry.WATER && tender.getFluid().amount > 0) {
+			//if (tender.theTank.getFluidAmount() * 38 / tender.theTank.getCapacity() > 0) {
 
 				drawTexturedModalRect(j + 143, (k + 69) - lo, 190, 69 - lo, 18, lo);
-			}
+			//}
 		}
 	}
 }
