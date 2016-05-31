@@ -61,7 +61,9 @@ public class LiquidManager {
 		dieselFilter();
 		FuelManager.addBoilerFuel(DIESEL, 60000);
 		FuelManager.addBoilerFuel(REFINED_FUEL, 96000);
+
 		if(Loader.isModLoaded("BuildCraft|Core")) {addBCFluids();}
+
 		MinecraftForge.EVENT_BUS.register(this);
 
 		registerFluidBlock((BlockTraincraftFluid) BlockIDs.diesel.block);
@@ -187,7 +189,7 @@ public class LiquidManager {
 		return null;
 	}
 
-	public ItemStack processContainer(IInventory inventory, int inventoryIndex, FluidTank tank, ItemStack itemstack, int tankIndex) {
+	public ItemStack processContainer(IInventory inventory, int inventoryIndex, FluidTank tank, ItemStack itemstack) {
 		FluidStack bucketLiquid = getFluidInContainer(itemstack);
 		ItemStack emptyItem = itemstack.getItem().getContainerItem(itemstack);
 		if ((bucketLiquid != null)) {
