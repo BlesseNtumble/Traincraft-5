@@ -138,10 +138,7 @@ public class GuiTender extends GuiContainer {
 		fontRendererObj.drawStringWithShadow("the GUI and destroy it.", startX, startY + 20, -1);
 		fontRendererObj.drawStringWithShadow("Current state: "+state, startX, startY+30, -1);
 		fontRendererObj.drawStringWithShadow("Owner: "+((AbstractTrains) tender).trainOwner.trim(), startX, startY+40, -1);
-		
-		fontRendererObj.drawStringWithShadow(tender.getFluid() != null ? tender.getFluid().getLocalizedName() : "None", j + 143, k + 69, -1);
-        fontRendererObj.drawStringWithShadow(tender.theTank.getFluidAmount()+"/"+tender.getCartTankCapacity(), j + 143, k + 69+10, -1);
-        
+ 
 	}
 	public boolean intersectsWith(int mouseX, int mouseY) {
 		//System.out.println(mouseX+" "+mouseY);
@@ -162,14 +159,12 @@ public class GuiTender extends GuiContainer {
 		int k = (height - ySize) / 2;
 		this.drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
 
+		//System.out.println("Fluid: " + tender.theTank.getFluid().getUnlocalizedName() + "| Amount: " + tender.theTank.getFluidAmount() + "| ID: " + tender.theTank.getFluid().getFluidID());
+		
 		int load = tender.getWater();
 		int lo = Math.abs(((load * 50) / tender.getCartTankCapacity()));
-
-		int lavaLevel = this.tender.theTank.getFluid() != null ? this.tender.theTank.getFluid().amount : 1;
-		System.out.println(tender.getFluid());
-		if (lavaLevel > 0) {
-			this.drawTexturedModalRect(j + 143, (k + 69) - lo, 190, 69 - lo, 18, lo);
-		}
+		this.drawTexturedModalRect(j + 143, (k + 69) - lo, 190, 69 - lo, 18, lo);
+		
 		
 	}
 }

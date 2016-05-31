@@ -60,7 +60,7 @@ public class LiquidManager {
 		dieselFilter();
 		FuelManager.addBoilerFuel(DIESEL, 60000);
 		FuelManager.addBoilerFuel(REFINED_FUEL, 96000);
-		if(Loader.isModLoaded("BuildCraft|Core"))
+		if(Loader.isModLoaded("BuildCraft"))
 		{
 			BuildcraftFuelRegistry.fuel.addFuel(DIESEL, 3, 200000);
 			BuildcraftFuelRegistry.fuel.addFuel(REFINED_FUEL, 6, 100000);

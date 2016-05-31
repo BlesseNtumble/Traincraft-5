@@ -198,7 +198,7 @@ public abstract class SteamTrain extends Locomotive implements IFluidHandler {
 								//j1 = lis3.size();
 							}
 						}
-						else if (((Tender) entity).getWater() > 0) {
+						else if (((Tender) entity).theTank.getFluidAmount() > 0) {
 							if (getWater() < maxTank) {
 
 								FluidStack drain = ((Tender) entity).drain(ForgeDirection.UNKNOWN, 1, false);

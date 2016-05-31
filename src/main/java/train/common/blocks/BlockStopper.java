@@ -56,7 +56,7 @@ public class BlockStopper extends BlockContainer {
 
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
-		if (world.isSideSolid(x, y, z, UP)) {
+		if (world.isSideSolid(x, y - 1, z, UP)) {
 			return true;
 		}
 		else {

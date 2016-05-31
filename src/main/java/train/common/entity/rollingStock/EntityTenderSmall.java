@@ -22,7 +22,7 @@ public class EntityTenderSmall extends Tender implements IInventory {
 	EntityPlayer playerEntity;
 
 	public EntityTenderSmall(World world) {
-		super(world, FluidRegistry.WATER, 0, EnumTrains.tenderSmall.getTankCapacity(), LiquidManager.WATER_FILTER);
+		super(world, 0, 0, EnumTrains.tenderSmall.getTankCapacity(), LiquidManager.WATER_FILTER);
 		initFreightTender();
 	}
 

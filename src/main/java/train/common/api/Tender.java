@@ -1,3 +1,4 @@
+
 package train.common.api;
 
 import net.minecraft.inventory.IInventory;
@@ -5,19 +6,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
-import train.common.api.LiquidManager.FilteredTank;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 import train.common.api.LiquidManager.StandardTank;
 
 public abstract class Tender extends Freight implements IFluidHandler {
 
 	public ItemStack tenderItems[];
-	public int liquidId = 0;
 	public int fuelSlot = 1;
 	public int waterSlot = 1;
 	private int maxTank;
 	private int update = 8;
-	public FluidTank theTank;
+	public StandardTank theTank;
+	private IFluidTank[] tankArray = new IFluidTank[1];
 	private FluidStack liquid;
 
 	/**
@@ -27,19 +31,26 @@ public abstract class Tender extends Freight implements IFluidHandler {
 	 * @param quantity
 	 * @param capacity
 	 */
-	public Tender(World world, Fluid liquid, int quantity, int capacity) {
-		this(new FluidStack(liquid, quantity), capacity, world, null);
+	public Tender(World world, int liquidId, int quantity, int capacity) {
+		this(capacity, world, null, null);
 	}
 
-	public Tender(World world, Fluid liquid, int quantity, int capacity, FluidStack filter) {
-		this(new FluidStack(liquid, quantity), capacity, world, filter);
+	public Tender(World world, int liquidId, int quantity, int capacity, FluidStack filter) {
+		this(capacity, world, filter, null);
 	}
 
-	private Tender(FluidStack liquid, int capacity, World world, FluidStack filter) {
+	private Tender(int capacity, World world, FluidStack filter, FluidStack[] multiFilter) {
 		super(world);
-		this.liquid = liquid;
 		this.maxTank = capacity;
-		this.theTank = LiquidManager.getInstance().new StandardTank(5000);
+		if (filter == null && multiFilter == null)
+			this.theTank = LiquidManager.getInstance().new StandardTank(capacity);
+		if (filter != null)
+			this.theTank = LiquidManager.getInstance().new FilteredTank(capacity, filter);
+		if (multiFilter != null)
+			this.theTank = LiquidManager.getInstance().new FilteredTank(capacity, multiFilter);
+		tankArray[0] = theTank;
+		dataWatcher.addObject(4, new Integer(0));
+		this.dataWatcher.addObject(23, new Integer(0));
 	}
 	@Override
 	public abstract int getSizeInventory();
@@ -59,6 +70,15 @@ public abstract class Tender extends Freight implements IFluidHandler {
 		super.onUpdate();
 		if (worldObj.isRemote)
 			return;
+		if (theTank != null && theTank.getFluid() != null) {
+			this.dataWatcher.updateObject(23, theTank.getFluid().amount);
+			this.dataWatcher.updateObject(4, theTank.getFluid().getFluidID());
+			
+		}
+		else if (theTank != null && theTank.getFluid() == null) {
+			this.dataWatcher.updateObject(23, 0);
+			this.dataWatcher.updateObject(4, 0);
+		}
 	}
 	/**
 	 * handle mass depending on items and liquid
@@ -93,14 +113,24 @@ public abstract class Tender extends Freight implements IFluidHandler {
 	 * @return
 	 */
 	public int getWater() {
-		if (theTank != null && theTank.getFluid() != null) {
-			return theTank.getFluidAmount();
-		}
-		return 0;
+		return (this.dataWatcher.getWatchableObjectInt(23));
+	}
+
+	/**
+	 * used by the GUI
+	 * 
+	 * @return int
+	 */
+	public int getLiquidItemID() {
+		return (this.dataWatcher.getWatchableObjectInt(4));
 	}
 
 	public int getCartTankCapacity() {
 		return maxTank;
+	}
+
+	public StandardTank getTank() {
+		return theTank;
 	}
 
 	private void placeInInvent(ItemStack itemstack1, Tender tender) {
@@ -132,7 +162,7 @@ public abstract class Tender extends Freight implements IFluidHandler {
 			return;
 		this.update += 1;
 		if (this.update % 8 == 0 && itemstack != null) {
-			ItemStack result = LiquidManager.getInstance().processContainer(this, 0, theTank, itemstack);
+			ItemStack result = LiquidManager.getInstance().processContainer((IInventory) this, 0, theTank, itemstack);
 			if (result != null) {
 				placeInInvent(result, tender);
 				//decrStackSize(0, 1);

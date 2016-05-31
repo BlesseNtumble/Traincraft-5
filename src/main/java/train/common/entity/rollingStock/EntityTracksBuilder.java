@@ -752,12 +752,17 @@ public class EntityTracksBuilder extends EntityRollingStock implements IInventor
 
 	/* Gets the drops of the block then calls blockSpawner */
 	public void getBlockList(World worldObj, int i, int j, int k) {
-		if ((Block.getIdFromBlock(worldObj.getBlock(i, j, k)) != 0)) {
+		if ((Block.getIdFromBlock(worldObj.getBlock(i, j, k)) != 0)) 
+		{
 			ArrayList<ItemStack> stacks = new ArrayList<ItemStack>(TrainModBlockUtil.getItemStackFromBlock(worldObj, (int) i, (int) j, (int) k));//underBlockStack.getItem().getMetadata(underBlockStack.getItemDamage())
-			for (ItemStack s : stacks) {
+			for (ItemStack s : stacks) 
+			{
 				if( (BlockRailBase.func_150051_a(Block.getBlockFromItem(s.getItem()))))return;
-				if (Item.getIdFromItem(s.getItem()) != 0 && (s.getItem() != Item.getItemFromBlock(Block.getBlockFromName("glass"))) && (Item.getIdFromItem(s.getItem())) != Item.getIdFromItem(tunnelBlockStack.getItem())) {// && (isBlockInteresting(s))) {// can't spawn rails or air blocks or glass blocks
-					if ((Block.getIdFromBlock(worldObj.getBlock(i, j, k)) != Item.getIdFromItem(tunnelBlockStack.getItem()))) {
+				
+				if (Item.getIdFromItem(s.getItem()) != 0 && (s.getItem() != Item.getItemFromBlock(Block.getBlockFromName("glass"))) && (s.getItem() != Item.getItemFromBlock(Block.getBlockFromName("bedrock"))) && (Item.getIdFromItem(s.getItem())) != Item.getIdFromItem(tunnelBlockStack.getItem())) 
+				{
+					if ((Block.getIdFromBlock(worldObj.getBlock(i, j, k)) != Item.getIdFromItem(tunnelBlockStack.getItem()))) 
+					{
 						putInInvent(s);
 					}
 				}
@@ -1123,7 +1128,7 @@ public class EntityTracksBuilder extends EntityRollingStock implements IInventor
 				decrStackInInvent(5, 1, 1);
 			}
 			if (upperCenterBlockStack == null)
-				worldObj.setBlock(i + iX, j + hY + 4, k, Blocks.stone);
+			worldObj.setBlock(i + iX, j + hY + 4, k, Blocks.stonebrick);
 			worldObj.setBlockToAir(i + iX, j + hY, k - 1);
 			worldObj.setBlockToAir(i + iX, j + hY, k + 1);
 			worldObj.setBlockToAir(i + iX, j + hY + 1, k);
@@ -1386,6 +1391,7 @@ public class EntityTracksBuilder extends EntityRollingStock implements IInventor
 				getBlockList(worldObj, i, j - 1 + hY, k);
 				worldObj.setBlock(i, j - 1 + hY, k, Block.getBlockFromItem(underBlockStack.getItem()), underBlockStack.getItem().getMetadata(underBlockStack.getItemDamage()), 3);// changes the block under the builder
 				decrStackInInvent(3, 1, 1);// decr underblock
+				
 			}
 
 			//placing the block (not the one right under the track but below)

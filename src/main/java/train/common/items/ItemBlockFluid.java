@@ -22,12 +22,12 @@ public class ItemBlockFluid extends ItemBlock {
 
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return ((Block) fluid).getUnlocalizedName();
+		return fluid.getUnlocalizedName();
 	}
 
 	@Override
 	public String getUnlocalizedName() {
-		return ((Block) fluid).getUnlocalizedName();
+		return fluid.getUnlocalizedName();
 		}
 
 }

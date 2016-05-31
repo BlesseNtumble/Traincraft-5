@@ -67,7 +67,7 @@ public enum EnumTrains {
 	/** Tanks **/
 	tankWagon_DB("Tank Wagon DB",EntityTankWagon_DB.class, 115,ItemIDs.minecartTankWagon_DB.item,"train_tank_db","tank",0,0,6,0,0,0,0,0,50000,null,18,null,null,0.98,1.98,new String[] {"Capacity: 50000mb"}),
 	tankWagonUS("Tank Wagon US",EntityTankWagonUS.class, 70,ItemIDs.minecartTankWagonUS.item,"train_tank_us_2","tank",0,0,6,0,0,0,0,0,70000,null,18,null,null,0.98,1.98,new String[] {"Capacity: 70000mb"}),
-	tankWagonGrey("Tank Wagon Grey",EntityTankWagon2.class,47,ItemIDs.minecartTankWagon2.item,"train_tank_blue","tank",0,0,3,0,0,0,0,0,40000,null,18,null,null,0.98,1.98,new String[] {"Capacity: 40000mb"}),
+	tankWagonGrey("Tank Wagon Grey",EntityTankWagon2.class,47,ItemIDs.minecartTankWagon2.item,"train_tank_blue","tank",0,0,3,0,0,0,0,0,25000,null,18,null,null,0.98,1.98,new String[] {"Capacity: 40000mb"}),
 	tankCartLava("Tank Lava",EntityTankLava.class, 5,ItemIDs.minecartWatertransp.item,"train_tank_lava","tank",0,0,5,0,0,0,0,0,30000,new String[] {"Empty","Full"},18,null,null,0.98,1.98,new String[] {"Capacity: 30000mb","Only lava"}),
 	tankWagonYellow("Tank Wagon Yellow",EntityTankWagon.class, 39,ItemIDs.minecartTankWagon.item,"train_tank_us","tank",0,0,6,0,0,0,0,0,40000,null,18,null,null,0.98,1.98,new String[] {"Capacity: 40000mb"}),
 

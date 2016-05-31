@@ -21,7 +21,7 @@ public class EntityTenderEr_Ussr extends Tender implements IInventory {
 	public int numFreightSlots;
 
 	public EntityTenderEr_Ussr(World world) {
-		super(world, FluidRegistry.WATER, 0, EnumTrains.tenderEr_Ussr.getTankCapacity(), LiquidManager.WATER_FILTER);
+		super(world, 0, 0, EnumTrains.tenderEr_Ussr.getTankCapacity(), LiquidManager.WATER_FILTER);
 		initFreightTender();
 	}
 
